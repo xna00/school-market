@@ -1,13 +1,12 @@
 import mongoose, { Document } from "mongoose";
 
-const schema = new mongoose.Schema<
-  {
-    description: string;
-    images: string[];
-    price: number;
-    seller: object;
-  } & Document
->(
+export type Good = {
+  description: string;
+  images: string[];
+  price: number;
+  seller: object;
+} & Document;
+const schema = new mongoose.Schema<Good>(
   {
     description: { type: String },
     images: [{ type: String }],
