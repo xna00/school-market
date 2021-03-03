@@ -3,14 +3,17 @@
     <div v-for="good in goods">
       <img :src="good.images[0]" />
       <TwoLine :text="good.description" />
-      <div>{{ good.price }}</div>
+      <div>{{ good.price }}¥</div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import { ref } from "vue";
+import { defineProps, ref, watch } from "vue";
 import http from "../http";
 import TwoLine from "../components/TwoLine.vue";
+const props = defineProps({
+  keyword: { type: String },
+});
 const goods = ref([]);
 let pageNum = 0;
 const fetch = async () => {
@@ -21,6 +24,7 @@ const fetch = async () => {
       params: {
         pageNum,
         pageSize: 10,
+        keyword: props.keyword,
       },
     })
   ).data;
@@ -30,6 +34,11 @@ const fetch = async () => {
   goods.value.push(...res);
 };
 fetch();
+watch(props, () => {
+  pageNum = 0;
+  goods.value = [];
+  fetch();
+});
 function debounce(fn, delay: number) {
   let timer;
   return function () {
@@ -54,9 +63,12 @@ function onScroll(e) {
 .continer {
   overflow: auto;
   flex-wrap: wrap;
+  align-content: flex-start;
   > div {
     display: inline-block;
     width: 45.5vw;
+    flex-grow: 0;
+    flex-shrink: 0;
     > img {
       width: 100%;
       height: 45vw;
