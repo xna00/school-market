@@ -1,8 +1,8 @@
 <template>
-  <div class="d-flex flex-column vh-100">
-    <header><slot name="header" /></header>
+  <div class="d-flex flex-column vh-100 px-6">
+    <header class="py-4"><slot name="header" /></header>
     <main class="flex-1"><slot /></main>
-    <nav class="d-flex jc-around">
+    <nav class="d-flex">
       <router-link to="/market">
         <Icon name="market" />
         <div>集市</div>
@@ -26,17 +26,20 @@
 import Icon from "./Icon";
 </script>
 <style lang="scss" scoped>
-nav {
-  box-shadow: 1px -1px 3px -2px rgba(0, 0, 0, 0.5);
+main {
+  overflow: auto;
 }
-a {
-  color: black;
-  text-align: center;
-  div {
-    font-size: 8px;
-  }
-  &.router-link-active {
-    color: sandybrown;
+nav {
+  a {
+    color: black;
+    text-align: center;
+    width: 25%;
+    div {
+      font-size: 2vw;
+    }
+    &.router-link-active {
+      color: sandybrown;
+    }
   }
 }
 </style>

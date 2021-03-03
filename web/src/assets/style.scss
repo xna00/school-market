@@ -104,3 +104,10 @@ a {
   fill: currentColor;
   overflow: hidden;
 }
+
+.text-ellipsis {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
