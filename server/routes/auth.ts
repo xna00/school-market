@@ -21,7 +21,7 @@ export default (app: Express) => {
     const isValid = require("bcrypt").compareSync(password, user!.password);
     assert(isValid, 422, "密码错误");
     const token = jwt.sign({ id: user!._id }, app.get("secret"));
-    res.send({ token });
+    res.send({ token, id: user?._id });
   });
 
   app.use("/api/auth", router);
