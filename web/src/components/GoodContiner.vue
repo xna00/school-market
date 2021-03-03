@@ -1,16 +1,13 @@
 <template>
   <div class="h-100 continer d-flex jc-between" @scroll="onScroll">
-    <div v-for="good in goods" @click="$router.push(`/goods/${good._id}`)">
-      <img :src="good.images[0]" />
-      <TwoLine :text="good.description" />
-      <div>{{ good.price }}¥</div>
-    </div>
+    <GoodRawContiner :goods="goods"/>
   </div>
 </template>
 <script lang="ts" setup>
 import { defineProps, ref, watch } from "vue";
 import http from "../http";
 import TwoLine from "../components/TwoLine.vue";
+import GoodRawContiner from './GoodRawContiner.vue'
 const props = defineProps({
   keyword: { type: String },
 });
@@ -64,16 +61,5 @@ function onScroll(e) {
   overflow: auto;
   flex-wrap: wrap;
   align-content: flex-start;
-  > div {
-    display: inline-block;
-    width: 45.5vw;
-    flex-grow: 0;
-    flex-shrink: 0;
-    > img {
-      width: 100%;
-      height: 45vw;
-      border-radius: 2vw;
-    }
-  }
 }
 </style>
