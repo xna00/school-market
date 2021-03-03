@@ -3,3 +3,92 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.w-100 {
+  width: 100%;
+}
+.h-100 {
+  height: 100%;
+}
+.vh-100 {
+  height: 100vh;
+}
+.vw-100 {
+  width: 100vw;
+}
+
+// flex
+.d-flex {
+  display: flex;
+}
+.flex-1 {
+  flex: 1;
+}
+.flex-column {
+  flex-direction: column;
+}
+
+$flex-jc: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+);
+$flex-ai: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  stretch: stretch,
+);
+
+@each $key, $value in $flex-jc {
+  .jc-#{$key} {
+    justify-content: $value;
+  }
+}
+
+@each $key, $value in $flex-ai {
+  .ai-#{$key} {
+    align-items: $value;
+  }
+}
+
+// space
+$spacing-types: (
+  m: margin,
+  p: padding,
+);
+$spacing-directions: (
+  t: top,
+  r: right,
+  b: bottom,
+  l: left,
+);
+$spacing-sizes: (
+  0: 0,
+  1: 0.15,
+  2: 0.25,
+  3: 0.5,
+  4: 1,
+  5: 1.5,
+  6: 3,
+);
+// m-x p-x
+@each $typeKey, $type in $spacing-types {
+  @each $spacingKey, $spacing in $spacing-sizes {
+    .#{$typeKey}x-#{$spacingKey} {
+      #{$type}-left: #{$spacing}vw;
+      #{$type}-right: #{$spacing}vw;
+    }
+    .#{$typeKey}y-#{$spacingKey} {
+      #{$type}-top: #{$spacing}vw;
+      #{$type}-bottom: #{$spacing}vw;
+    }
+    @each $directionKey, $direction in $spacing-directions {
+      .#{$typeKey}#{$directionKey}-#{$spacingKey} {
+        #{$type}-#{$direction}: #{$spacing}vw;
+      }
+    }
+  }
+}
