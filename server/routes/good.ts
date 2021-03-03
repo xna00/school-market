@@ -18,9 +18,14 @@ export default (app: Express) => {
       pageNum = "1";
       pageSize = "10";
     }
+    const query: { description?: object } = {};
+    let keyword = req.query.keyword;
+    if (keyword) {
+    query.description = { $regex: `.*${keyword}.*` };
+    }
     let num = parseInt(pageNum);
     let size = parseInt(pageSize);
-    const goods = await Good.find()
+    const goods = await Good.find(query)
       .sort({ _id: -1 })
       .skip(size * (num - 1))
       .limit(size);
