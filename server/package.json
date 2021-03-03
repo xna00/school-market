@@ -17,11 +17,13 @@
     "http-assert": "^1.4.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.18",
-    "require-all": "^3.0.0"
+    "require-all": "^3.0.0",
+    "socket.io": "^3.1.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.10",
-    "@types/express": "^4.17.11"
+    "@types/express": "^4.17.11",
+    "@types/socket.io": "^2.1.13"
   }
 }
