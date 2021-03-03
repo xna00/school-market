@@ -6,6 +6,7 @@ import Message from "./views/Message.vue";
 import Me from "./views/Me.vue";
 import Search from "./views/Search.vue";
 import Good from "./views/Good.vue";
+import User from "./views/User.vue";
 const history = createWebHashHistory();
 const router = createRouter({
   history,
@@ -16,6 +17,7 @@ const router = createRouter({
     { path: "/me", component: Me },
     { path: "/search", component: Search },
     { path: "/goods/:id", component: Good, props: true },
+    { path: "/users/:id", component: User, props: true },
     { path: "/:pathMatch(.*)*", redirect: "/market" },
   ],
 });

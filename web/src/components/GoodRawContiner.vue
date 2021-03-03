@@ -7,7 +7,7 @@
 </template>
 <script lang="ts" setup>
 import { defineProps } from "@vue/runtime-core";
-
+import TwoLine from "../components/TwoLine.vue";
 defineProps({
   goods: { type: Array },
 });

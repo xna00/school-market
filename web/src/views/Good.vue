@@ -1,12 +1,14 @@
 <template>
   <div class="px-6">
     <header class="py-6">
-      <Icon name="left" @click="$router.back()"/>
+      <Icon name="left" @click="$router.back()" />
     </header>
-    <div>{{ good?.seller.account }}</div>
+    <div @click="$router.push(`/users/${good?.seller._id}`)">
+      {{ good?.seller.account }}
+    </div>
     <div class="price py-5">¥{{ good?.price }}</div>
     <p>{{ good?.description }}</p>
-    <img v-for="image in good?.images" :src="image" alt="">
+    <img v-for="image in good?.images" :src="image" alt="" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -25,7 +27,7 @@ fetch();
 </script>
 <style lang="scss" scoped>
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
 .price {
   color: red;

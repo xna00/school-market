@@ -6,7 +6,6 @@
 <script lang="ts" setup>
 import { defineProps, ref, watch } from "vue";
 import http from "../http";
-import TwoLine from "../components/TwoLine.vue";
 import GoodRawContiner from './GoodRawContiner.vue'
 const props = defineProps({
   keyword: { type: String },

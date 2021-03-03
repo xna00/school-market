@@ -1,5 +1,8 @@
 <template>
 <Layout>
-  me
+  
 </Layout>
 </template>
+<script lang="ts" setup>
+
+</script>
