@@ -4,7 +4,7 @@ export type Good = {
   description: string;
   images: string[];
   price: number;
-  seller: object;
+  seller: object | string;
 } & Document;
 const schema = new mongoose.Schema<Good>(
   {
