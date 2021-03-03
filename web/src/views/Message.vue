@@ -1,3 +1,5 @@
 <template>
-    message
+<Layout>
+    Message
+</Layout>
 </template>

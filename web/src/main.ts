@@ -2,6 +2,9 @@ import { createApp } from "vue";
 import router from "./router";
 import App from "./App.vue";
 
-import './assets/style.scss'
+import "./assets/style.scss";
 
-createApp(App).use(router).mount("#app");
+import Layout from "./components/Layout.vue";
+const app = createApp(App).use(router);
+app.component("Layout", Layout);
+app.mount("#app");

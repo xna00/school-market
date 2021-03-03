@@ -1,3 +1,3 @@
 <template>
-  trend
+  <Layout> trend </Layout>
 </template>
