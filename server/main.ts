@@ -1,6 +1,7 @@
 import express from "express";
 import { createServer } from "http";
 import { Server, Socket } from "socket.io";
+import multer from "multer";
 import cors from "cors";
 import errorHandler from "./middleware/errorHandler";
 import db from "./plugins/db";
@@ -15,9 +16,15 @@ io.on("connection", (socket) => {
   console.log("a user connected");
 });
 
+app.use(cors());
+const upload = multer({ dest: "uploads/" });
+app.post("/api/upload", upload.single("image"), (req: any, res) => {
+  const file = req.file;
+  res.send({ fileUrl: file.path });
+});
+app.use("/uploads", express.static(__dirname + "/uploads"));
 app.set("secret", "jf389u3cosidufq0e3");
 
-app.use(cors());
 app.use(express.json());
 
 db(app);

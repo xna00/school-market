@@ -1,4 +1,5 @@
 import express, { Express } from "express";
+import auth from "../middleware/auth";
 import Good from "../models/Good";
 export default (app: Express) => {
   const router = express.Router({
@@ -32,13 +33,18 @@ export default (app: Express) => {
     res.send(goods);
   });
 
-  router.post("/", async (req, res) => {
-    const good = await Good.create(req.body);
+  router.post("/", auth(), async (req: any, res) => {
+    const _good = {
+      ...req.body,
+      seller: req.user._id,
+    };
+
+    const good = await Good.create(_good);
     res.send(good);
   });
 
   router.get("/:id", async (req, res) => {
-    res.send(await Good.findById(req.params.id).populate('seller'));
+    res.send(await Good.findById(req.params.id).populate("seller"));
   });
 
   router.delete("/:id", async (req, res) => {});

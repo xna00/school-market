@@ -18,6 +18,7 @@
     </div>
     <div v-if="id">
       <button @click="logout">注销</button>
+      <button @click="$router.push('/upload')">上传</button>
       <User :id="id" :chat="false" />
     </div>
   </Layout>
