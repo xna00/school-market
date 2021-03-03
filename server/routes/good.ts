@@ -21,7 +21,7 @@ export default (app: Express) => {
     const query: { description?: object } = {};
     let keyword = req.query.keyword;
     if (keyword) {
-    query.description = { $regex: `.*${keyword}.*` };
+      query.description = { $regex: `.*${keyword}.*` };
     }
     let num = parseInt(pageNum);
     let size = parseInt(pageSize);
@@ -37,7 +37,9 @@ export default (app: Express) => {
     res.send(good);
   });
 
-  router.get("/:id", async (req, res) => {});
+  router.get("/:id", async (req, res) => {
+    res.send(await Good.findById(req.params.id).populate('seller'));
+  });
 
   router.delete("/:id", async (req, res) => {});
 
