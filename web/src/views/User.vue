@@ -1,7 +1,7 @@
 <template>
-  <div class="px-6">
+  <div class="px-3">
     <div>{{ user?.account }}</div>
-    <button class="chat">私聊</button>
+    <button v-if="chat" class="chat">私聊</button>
     <div class="d-flex jc-between continer">
       <GoodRawContiner :goods="user?.goods" />
     </div>
