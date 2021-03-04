@@ -1,6 +1,6 @@
 import express from "express";
 import { createServer } from "http";
-import { Server, Socket } from "socket.io";
+import socketIO from "./plugins/socketIO";
 import multer from "multer";
 import cors from "cors";
 import errorHandler from "./middleware/errorHandler";
@@ -11,19 +11,7 @@ import user from "./routes/user";
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
-io.on("connection", (socket) => {
-  console.log("a user connected");
-
-  socket.on("hi", (socket) => {
-    console.log("hi");
-  });
-});
+socketIO(server);
 
 app.use(cors());
 const upload = multer({ dest: "uploads/" });
