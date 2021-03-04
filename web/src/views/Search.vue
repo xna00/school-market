@@ -1,7 +1,7 @@
 <template>
   <div class="vh-100 px-6 d-flex flex-column">
     <header class="d-flex ai-center py-6 px-5">
-      <Icon name="left" @click="$router.back()"/>
+      <Icon name="left" @click="$router.back()" />
       <input
         ref="input"
         @keydown.enter="search"
@@ -17,6 +17,7 @@
 import { ref } from "@vue/reactivity";
 import Icon from "../components/Icon";
 import GoodContiner from "../components/GoodContiner.vue";
+import { onMounted } from "@vue/runtime-core";
 const keyword = ref();
 const input = ref<HTMLInputElement>();
 const search = () => {
@@ -24,6 +25,9 @@ const search = () => {
   keyword.value = input.value.value;
   console.log(keyword.value);
 };
+onMounted(()=>{
+  input.value?.focus()
+})
 </script>
 <style lang="scss" scoped>
 input {
