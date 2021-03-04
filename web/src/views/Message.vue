@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <template v-slot:header>
-      <Icon name="left" />
+      <Icon name="left" @click="$router.back()"/>
     </template>
     <li
       v-for="session in sessions"
