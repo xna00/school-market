@@ -10,4 +10,9 @@ export default defineConfig({
       // options are passed on to @vue/babel-plugin-jsx
     }),
   ],
+  resolve: {
+    alias: {
+      "socket.io-client": "socket.io-client/dist/socket.io.js",
+    },
+  },
 });
