@@ -8,7 +8,7 @@
       <li v-for="msg in messages" :class="{ reverse: msg.from === myId }">
         <img
           src="http://localhost:4000/uploads/1aff941a3418f0ac2d64b15e7f5fbd09"
-          alt=""
+          @click="$router.push(`/users/${id}`)"
         />
         <span>
           {{ msg.content }}
@@ -26,12 +26,13 @@
 <script lang="ts" setup>
 import Icon from "../components/Icon";
 import {
+  computed,
   defineProps,
   onBeforeUnmount,
   onUpdated,
   ref,
 } from "@vue/runtime-core";
-import { io } from "socket.io-client";
+import { sessions, socket } from "../lib/message";
 import http from "../http";
 const props = defineProps({
   id: { type: String },
@@ -41,19 +42,13 @@ const user = ref();
 (async () => {
   user.value = (await http.get(`/users/${props.id}`)).data;
 })();
-const messages = ref([]);
-// build 时要修改
-const socket = io("http://127.0.0.1:4000", { auth: { id: props.id } });
-socket.on("connect", () => console.log("connected"));
-socket.on("disconnect", () => {
-  console.log("disconnect");
-  socket.connect();
-});
-socket.on("message", (msg) => messages.value.push(msg));
+const messages = computed(
+  () => sessions.value.find((s) => s.id === props.id)?.msgs
+);
+// socket.emit("read", props.id);
 const sendMessage = (e) => {
   const messageElement = e.target.message as HTMLInputElement;
   socket.send({
-    from: myId,
     to: props.id,
     content: messageElement.value,
   });
