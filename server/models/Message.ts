@@ -3,6 +3,7 @@ type Message = {
   from: string;
   to: string;
   content: string;
+  read: boolean;
 } & Document;
 const schema = new mongoose.Schema<Message>(
   {
