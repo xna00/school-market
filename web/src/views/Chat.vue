@@ -17,7 +17,7 @@
     </main>
     <footer>
       <form @submit.prevent="sendMessage">
-        <input type="text" name="message" required autocomplete="off" />
+        <textarea name="message" required autocomplete="off" />
         <input type="submit" />
       </form>
     </footer>
@@ -86,6 +86,7 @@ li {
     border-radius: 1vw;
   }
   > span {
+    white-space: pre-wrap;
     background: white;
     display: inline-block;
     font-size: 5vw;
@@ -122,24 +123,27 @@ li {
   }
 }
 form {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 2vw 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2vw 0;
+  > textarea {
+    border: none;
+    outline: none;
+    height: 10vw;
+    font-size: 5vw;
+    margin-left: 6vw;
+    margin-right: 3vw;
+    flex: 1;
+  }
   input {
     border: none;
-    font-size: 5vw;
     outline: none;
-    &[type="text"] {
-      line-height: 8vw;
-      margin-left: 6vw;
+    font-size: 5vw;
+    &[type="submit"] {
+      background: chartreuse;
+      padding: 0 0.4em;
       margin-right: 3vw;
-      flex: 1;
-    }
-    &[type="submit"]{
-        background: chartreuse;
-        padding: 0 .4em;
-        margin-right: 3vw;
     }
   }
 }
