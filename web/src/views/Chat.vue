@@ -28,7 +28,6 @@ import Icon from "../components/Icon";
 import {
   computed,
   defineProps,
-  onBeforeUnmount,
   onUpdated,
   ref,
 } from "@vue/runtime-core";
@@ -57,9 +56,6 @@ const sendMessage = (e) => {
 const mainRef = ref();
 onUpdated(() => {
   mainRef.value.scrollTo(0, 999999);
-});
-onBeforeUnmount(() => {
-  socket.disconnect();
 });
 </script>
 <style lang="scss" scoped>

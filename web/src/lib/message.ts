@@ -1,10 +1,12 @@
 import { io } from "socket.io-client";
 import { ref } from "vue";
 const sessions = ref<{ id: string; msgs: Message[] }[]>([]);
+const extraHeaders: { [header: string]: string } = {};
+if (localStorage.token) {
+  extraHeaders.Authorization = "Bearer " + localStorage.token;
+}
 const socket = io("http://127.0.0.1:4000", {
-  extraHeaders: {
-    Authorization: "Bearer " + localStorage.token,
-  },
+  extraHeaders,
 });
 socket.on("connect", () => {
   console.log("connected");
@@ -19,7 +21,6 @@ type Message = {
 const me = localStorage.id;
 // 后面的 timestamp 大
 socket.on("message", (msgs: Message[]) => {
-
   msgs.forEach((msg) => {
     const id = me === msg.from ? msg.to : msg.from;
     let ms = sessions.value.find((m) => m.id === id);
@@ -34,6 +35,7 @@ socket.on("message", (msgs: Message[]) => {
     const timeB = new Date(mb.msgs[mb.msgs.length - 1].createAt).getTime();
     return timeB - timeA;
   });
+  console.log(sessions.value)
 });
 socket.on("disconnect", () => {
   console.log("disconnect");
