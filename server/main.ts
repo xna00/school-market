@@ -8,6 +8,7 @@ import db from "./plugins/db";
 import good from "./routes/good";
 import auth from "./routes/auth";
 import user from "./routes/user";
+import post from "./routes/post";
 
 const app = express();
 const server = createServer(app);
@@ -29,6 +30,7 @@ db(app);
 good(app);
 auth(app);
 user(app);
+post(app);
 
 app.use(errorHandler());
 server.listen(4000, () => {
