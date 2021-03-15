@@ -2,9 +2,9 @@ import { Good } from "./Good";
 import mongoose, { Document } from "mongoose";
 import bcrypt from "bcrypt";
 
-const schema = new mongoose.Schema<
-  { account: string; password: string; goods: Good[] } & Document
->(
+export type User = { account: string; password: string; goods: Good[] } & Document;
+
+const schema = new mongoose.Schema<User>(
   {
     account: { type: String, unique: true },
     password: {
