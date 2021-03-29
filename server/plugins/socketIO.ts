@@ -39,10 +39,8 @@ export default (server: HttpServer) => {
       userMap.get(res.to.toString())?.send([res]);
     });
     socket.on("get messages", async (query = {}) => {
-      // 只存未读消息
       const res = await Message.find({
         $or: [{ to: id }, { from: id }],
-        read: false,
       });
       socket.send(res);
     });

@@ -25,12 +25,7 @@
 </template>
 <script lang="ts" setup>
 import Icon from "../components/Icon";
-import {
-  computed,
-  defineProps,
-  onUpdated,
-  ref,
-} from "@vue/runtime-core";
+import { computed, defineProps, onUpdated, ref } from "@vue/runtime-core";
 import { sessions, socket } from "../lib/message";
 import http from "../http";
 const props = defineProps({
@@ -44,7 +39,9 @@ const user = ref();
 const messages = computed(
   () => sessions.value.find((s) => s.id === props.id)?.msgs
 );
-// socket.emit("read", props.id);
+socket.emit("read", props.id);
+sessions.value = [];
+socket.emit("get messages");
 const sendMessage = (e) => {
   const messageElement = e.target.message as HTMLInputElement;
   socket.send({

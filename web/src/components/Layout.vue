@@ -11,7 +11,12 @@
         <Icon name="trend" />
         <div>动态</div>
       </router-link>
-      <router-link to="/message" class="message" :count="messageCount">
+      <router-link
+        to="/message"
+        class="message"
+        :class="{ invisible: !messageCount }"
+        :count="messageCount"
+      >
         <Icon name="message" />
         <div>消息</div>
       </router-link>
@@ -28,7 +33,10 @@ import { sessions } from "../lib/message";
 import { computed } from "@vue/runtime-core";
 const messageCount = computed(() =>
   sessions.value.reduce<number>(
-    (total, current) => total + current.msgs.length,
+    (total, current) =>
+      total +
+      current.msgs.filter((msg) => msg.from !== localStorage.id && !msg.read)
+        .length,
     0
   )
 );
@@ -50,6 +58,11 @@ nav {
     }
     &.message {
       position: relative;
+      &.invisible {
+        &::after {
+          display: none;
+        }
+      }
       &::after {
         content: attr(count);
         position: absolute;

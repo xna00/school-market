@@ -17,11 +17,13 @@ type Message = {
   to: string;
   content: string;
   createAt: string;
+  read?: boolean;
 };
 const me = localStorage.id;
 // 后面的 timestamp 大
 socket.on("message", (msgs: Message[]) => {
   msgs.forEach((msg) => {
+    // id 是对方的 id
     const id = me === msg.from ? msg.to : msg.from;
     let ms = sessions.value.find((m) => m.id === id);
     if (!ms) {
@@ -35,7 +37,7 @@ socket.on("message", (msgs: Message[]) => {
     const timeB = new Date(mb.msgs[mb.msgs.length - 1].createAt).getTime();
     return timeB - timeA;
   });
-  console.log(sessions.value)
+  console.log(sessions.value);
 });
 socket.on("disconnect", () => {
   console.log("disconnect");
