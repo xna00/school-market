@@ -9,9 +9,25 @@ export default (app: Express) => {
     res.send(posts);
   });
   router.get("/:id", async (req, res) => {
-    const post: any = await Post.findById(req.params.id);
+    const post: any = await Post.findById(req.params.id).populate("author");
     const replies = await Post.aggregate([
       { $match: { parent: post?._id } },
+      {
+        $lookup: {
+          from: "users",
+          foreignField: "_id",
+          localField: "author",
+          as: "author",
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          foreignField: "_id",
+          localField: "replyTo",
+          as: "replyTo",
+        },
+      },
       {
         $lookup: {
           from: "posts",
@@ -25,6 +41,8 @@ export default (app: Express) => {
           replies: { $slice: ["$replies", 2] },
         },
       },
+      { $addFields: { author: { $arrayElemAt: ["$author", 0] } } },
+      { $addFields: { replyTo: { $arrayElemAt: ["$replyTo", 0] } } },
     ]);
     post.replies = replies;
     res.send(post);
