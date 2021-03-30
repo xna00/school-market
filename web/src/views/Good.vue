@@ -4,7 +4,7 @@
       <Icon name="left" @click="$router.back()" />
     </header>
     <div @click="$router.push(`/users/${good?.seller._id}`)">
-      {{ good?.seller.account }}
+      {{ good?.seller.name }}
     </div>
     <div class="price py-5">¥{{ good?.price }}</div>
     <p>{{ good?.description }}</p>

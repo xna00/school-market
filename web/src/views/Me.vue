@@ -16,7 +16,9 @@
         <input type="submit" />
       </form>
     </div>
-    <div v-if="id">
+    <div v-if="id" class="user-info">
+      <img :src="user?.avatar" />
+      <div>{{ user?.name }}</div>
       <button @click="logout">注销</button>
       <button @click="$router.push('/upload')">上传</button>
       <User :id="id" :chat="false" />
@@ -30,6 +32,13 @@ import User from "./User.vue";
 
 const register = ref(false);
 const id = ref(localStorage.id);
+const user = ref();
+(async () => {
+  if (id) {
+    user.value = (await http.get(`users/${id.value}`)).data;
+    console.log(user.value.avatar);
+  }
+})();
 const login = async (account, password) => {
   const user = (
     await http.post("/auth/login", {
@@ -69,5 +78,11 @@ const onSubmit = async (e) => {
 <style lang="scss" scoped>
 .register {
   text-decoration: underline;
+}
+.user-info {
+  > img {
+    width: 15vw;
+    height: 15vw;
+  }
 }
 </style>

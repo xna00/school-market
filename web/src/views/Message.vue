@@ -1,18 +1,46 @@
 <template>
   <Layout>
     <template v-slot:header>
-      <Icon name="left" @click="$router.back()"/>
+      <Icon name="left" @click="$router.back()" />
     </template>
     <li
-      v-for="session in sessions"
+      v-for="(session, i) in sessions"
       @click="$router.push(`/chat/${session.id}`)"
+      class="d-flex"
     >
-      {{ session.id }}
-      <br />
-      {{ session.msgs[session.msgs.length - 1].content }}
+      <img :src="users[i]?.avatar" class="mr-5" />
+      <div>
+        {{ users[i]?.name }}
+        <br />
+        {{ session.msgs[session.msgs.length - 1].content }}
+      </div>
     </li>
   </Layout>
 </template>
+<style lang="scss" scoped>
+li {
+  > img {
+    width: 10vw;
+    height: 10vw;
+  }
+}
+</style>
 <script lang="ts" setup>
+import { ref } from "@vue/reactivity";
+import { computed, watch } from "@vue/runtime-core";
+import http from "../http";
 import { sessions } from "../lib/message";
+const users = ref();
+watch(
+  sessions,
+  async () => {
+    users.value = await Promise.all(
+      sessions.value.map(
+        async (session) => (await http.get(`users/${session.id}`)).data
+      )
+    );
+    console.log(users.value);
+  },
+  { deep: true }
+);
 </script>
