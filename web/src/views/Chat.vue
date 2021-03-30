@@ -6,10 +6,7 @@
     </header>
     <main class="flex-1" ref="mainRef">
       <li v-for="msg in messages" :class="{ reverse: msg.from === myId }">
-        <img
-          src="http://localhost:4000/uploads/1aff941a3418f0ac2d64b15e7f5fbd09"
-          @click="$router.push(`/users/${id}`)"
-        />
+        <img :src="user?.avatar" @click="$router.push(`/users/${id}`)" />
         <span>
           {{ msg.content }}
         </span>
@@ -39,9 +36,6 @@ const user = ref();
 const messages = computed(
   () => sessions.value.find((s) => s.id === props.id)?.msgs
 );
-socket.emit("read", props.id);
-sessions.value = [];
-socket.emit("get messages");
 const sendMessage = (e) => {
   const messageElement = e.target.message as HTMLInputElement;
   socket.send({
@@ -52,6 +46,7 @@ const sendMessage = (e) => {
 };
 const mainRef = ref();
 onUpdated(() => {
+  socket.emit("read", props.id);
   mainRef.value.scrollTo(0, 999999);
 });
 </script>

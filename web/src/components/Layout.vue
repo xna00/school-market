@@ -31,6 +31,9 @@
 import Icon from "./Icon";
 import { sessions } from "../lib/message";
 import { computed } from "@vue/runtime-core";
+import { socket } from "../lib/message";
+sessions.value = [];
+socket.emit("get messages");
 const messageCount = computed(() =>
   sessions.value.reduce<number>(
     (total, current) =>
