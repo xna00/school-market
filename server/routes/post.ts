@@ -10,40 +10,32 @@ export default (app: Express) => {
   });
   router.get("/:id", async (req, res) => {
     const post: any = await Post.findById(req.params.id).populate("author");
-    const replies = await Post.aggregate([
-      { $match: { parent: post?._id } },
-      {
-        $lookup: {
-          from: "users",
-          foreignField: "_id",
-          localField: "author",
-          as: "author",
+    const getReplies = (post) =>
+      Post.aggregate([
+        { $match: { parent: post?._id } },
+        {
+          $lookup: {
+            from: "users",
+            foreignField: "_id",
+            localField: "author",
+            as: "author",
+          },
         },
-      },
-      {
-        $lookup: {
-          from: "users",
-          foreignField: "_id",
-          localField: "replyTo",
-          as: "replyTo",
+        {
+          $lookup: {
+            from: "users",
+            foreignField: "_id",
+            localField: "replyTo",
+            as: "replyTo",
+          },
         },
-      },
-      {
-        $lookup: {
-          from: "posts",
-          foreignField: "parent",
-          localField: "_id",
-          as: "replies",
-        },
-      },
-      {
-        $addFields: {
-          replies: { $slice: ["$replies", 2] },
-        },
-      },
-      { $addFields: { author: { $arrayElemAt: ["$author", 0] } } },
-      { $addFields: { replyTo: { $arrayElemAt: ["$replyTo", 0] } } },
-    ]);
+        { $addFields: { author: { $arrayElemAt: ["$author", 0] } } },
+        { $addFields: { replyTo: { $arrayElemAt: ["$replyTo", 0] } } },
+      ]);
+    const replies = await getReplies(post);
+    for (let reply of replies) {
+      reply.replies = await getReplies(reply);
+    }
     post.replies = replies;
     res.send(post);
   });

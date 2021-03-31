@@ -3,8 +3,15 @@
     <div class="wrapper">
       <ul>
         <li v-for="post in posts" @click="$router.push(`/posts/${post._id}`)">
+          <header class="d-flex">
+            <img :src="post.author?.avatar" />
+            <div>
+              {{ post.author?.name }}
+              <br />
+              {{ post.createAt }}
+            </div>
+          </header>
           <main>{{ post.content }}</main>
-          <footer>{{ post.author?.account }}</footer>
         </li>
       </ul>
       <div class="add">
@@ -25,6 +32,11 @@ fetch();
 </script>
 <style lang="scss" scoped>
 .wrapper {
+  header {
+    img {
+      width: 10vw;
+    }
+  }
   > .add {
     display: inline-block;
     position: fixed;

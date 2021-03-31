@@ -1,26 +1,36 @@
 <style lang="scss" scoped>
+img {
+  width: 10vw;
+  border-radius: 5vw;
+}
 .wrapper {
   > .post {
-    > main {
-      border: 1px solid red;
-    }
-    > .replies {
-      > .r1 {
-        border: 1px solid blue;
-        > .r2 {
-          border: 1px solid green;
-        }
-      }
+    overflow: auto;
+    > main,
+    .r1,
+    .r2 {
+      display: flex;
+      align-items: flex-start;
     }
   }
 }
 </style>
 <template>
   <div class="wrapper d-flex flex-column vh-100">
-    <Icon name="left" />
+    <Icon name="left" @click="$router.back()" />
     <div v-if="post" class="post flex-1">
       <main @click="onClick(post._id, post.author._id)">
-        {{ post.content }}
+        <img :src="post.author.avatar" />
+        <div>
+          <strong>
+            {{ post.author.name }}
+          </strong>
+          <br />
+          <span>{{ post.createdAt }}&nbsp;</span>
+          <p>
+            {{ post.content }}
+          </p>
+        </div>
       </main>
       <div class="replies">
         <div
@@ -28,13 +38,33 @@
           class="r1"
           @click="onClick(reply1._id, reply1.author?._id)"
         >
-          {{ reply1.content }}
-          <div
-            v-for="reply2 in reply1.replies"
-            class="r2"
-            @click="onClick(reply1._id, reply2.author?._id)"
-          >
-            {{ reply2.content }}
+          <img :src="reply1.author?.avatar" />
+          <div>
+            <strong>
+              {{ reply1.author?.name }}
+            </strong>
+            <br />
+            <span>{{ reply1.createdAt }}&nbsp;</span>
+            <p>
+              {{ reply1.content }}
+            </p>
+            <div
+              v-for="reply2 in reply1.replies"
+              class="r2"
+              @click="onClick(reply1._id, reply2.author?._id)"
+            >
+              <img :src="reply2.author?.avatar" />
+              <div>
+                <strong>
+                  {{ reply2.author?.name }} -> {{ reply2.replyTo?.name }}
+                </strong>
+                <br />
+                <span>{{ reply2.createdAt }}&nbsp;</span>
+                <p>
+                  {{ reply2.content }}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -57,6 +87,8 @@ const props = defineProps({
 const post = ref();
 const fetch = async () => {
   post.value = (await http.get(`posts/${props.id}`)).data;
+  parent.value = post.value._id;
+  replyTo.value = post.value.author._id;
 };
 fetch();
 const parent = ref();

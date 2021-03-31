@@ -15,7 +15,7 @@ const schema = new mongoose.Schema<Post>(
     parent: { type: mongoose.SchemaTypes.ObjectId, ref: "Post" },
   },
   // 注意
-  { toJSON: { virtuals: true } }
+  { toJSON: { virtuals: true }, timestamps: true }
 );
 schema.virtual("replies", {
   ref: "Post",
