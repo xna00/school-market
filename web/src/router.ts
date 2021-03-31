@@ -11,6 +11,7 @@ import Upload from "./views/Upload.vue";
 import Chat from "./views/Chat.vue";
 import CreatePost from "./views/CreatePost.vue";
 import Post from "./views/Post.vue";
+import EditProfile from "./views/EditProfile.vue";
 const history = createWebHashHistory();
 const router = createRouter({
   history,
@@ -19,6 +20,7 @@ const router = createRouter({
     { path: "/trend", component: Trend },
     { path: "/message", component: Message },
     { path: "/me", component: Me },
+    { path: "/edit-profile", component: EditProfile },
     { path: "/search", component: Search },
     { path: "/goods/:id", component: Good, props: true },
     { path: "/users/:id", component: User, props: true },

@@ -19,16 +19,16 @@
     <div v-if="id" class="user-info">
       <img :src="user?.avatar" />
       <div>{{ user?.name }}</div>
-      <button @click="logout">注销</button>
+      <div>{{ user?.account }}</div>
+      <button @click="$router.push('edit-profile')">编辑资料</button>
       <button @click="$router.push('/upload')">上传</button>
-      <User :id="id" :chat="false" />
+      <button @click="logout">注销</button>
     </div>
   </Layout>
 </template>
 <script lang="ts" setup>
 import { ref } from "@vue/reactivity";
 import http from "../http";
-import User from "./User.vue";
 
 const register = ref(false);
 const id = ref(localStorage.id);
@@ -83,6 +83,9 @@ const onSubmit = async (e) => {
   > img {
     width: 15vw;
     height: 15vw;
+  }
+  > button {
+    display: block;
   }
 }
 </style>
