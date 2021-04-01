@@ -12,6 +12,7 @@ import Chat from "./views/Chat.vue";
 import CreatePost from "./views/CreatePost.vue";
 import Post from "./views/Post.vue";
 import EditProfile from "./views/EditProfile.vue";
+import MyGoods from "./views/MyGoods.vue";
 const history = createWebHashHistory();
 const router = createRouter({
   history,
@@ -24,10 +25,11 @@ const router = createRouter({
     { path: "/search", component: Search },
     { path: "/goods/:id", component: Good, props: true },
     { path: "/users/:id", component: User, props: true },
-    { path: "/upload", component: Upload },
+    { path: "/upload/:id?", component: Upload, props: true },
     { path: "/chat/:id", component: Chat, props: true },
     { path: "/create-post", component: CreatePost },
     { path: "/posts/:id", component: Post, props: true },
+    { path: "/my-goods", component: MyGoods },
     { path: "/:pathMatch(.*)*", redirect: "/market" },
   ],
 });

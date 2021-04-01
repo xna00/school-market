@@ -47,7 +47,28 @@ export default (app: Express) => {
     res.send(await Good.findById(req.params.id).populate("seller"));
   });
 
-  router.delete("/:id", async (req, res) => {});
+  router.delete("/:id", auth(), async (req: any, res) => {
+    const _id = req.params.id;
+    const seller = req.user;
+    await Good.deleteOne({
+      seller,
+      _id,
+    });
+    res.send({ success: true });
+  });
+
+  router.put("/:id", auth(), async (req: any, res) => {
+    const _id = req.params.id;
+    const seller = req.user;
+    const good = await Good.findOneAndUpdate(
+      {
+        _id,
+        seller,
+      },
+      req.body
+    );
+    res.send(good);
+  });
 
   app.use("/api/goods", router);
 };
