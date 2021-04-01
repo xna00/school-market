@@ -6,7 +6,10 @@
     </header>
     <main class="flex-1" ref="mainRef">
       <li v-for="msg in messages" :class="{ reverse: msg.from === myId }">
-        <img :src="user?.avatar" @click="$router.push(`/users/${id}`)" />
+        <img
+          :src="msg.from === myId ? me?.avatar : user?.avatar"
+          @click="$router.push(`/users/${id}`)"
+        />
         <span>
           {{ msg.content }}
         </span>
@@ -29,9 +32,11 @@ const props = defineProps({
   id: { type: String },
 });
 const myId = localStorage.id;
+const me = ref();
 const user = ref();
 (async () => {
   user.value = (await http.get(`/users/${props.id}`)).data;
+  me.value = (await http.get("users/me")).data;
 })();
 const messages = computed(
   () => sessions.value.find((s) => s.id === props.id)?.msgs
