@@ -22,9 +22,14 @@ app.post("/api/upload", upload.single("image"), (req: any, res) => {
   const file = req.file;
   res.send({ fileUrl: file.path });
 });
-app.use("/uploads", express.static(__dirname + path.uploads));
-app.use("/assets", express.static(__dirname + path.assets));
-app.use("/", express.static(__dirname + path.web));
+
+const options = {
+  maxAge: 3600000,
+};
+
+app.use("/uploads", express.static(__dirname + path.uploads, options));
+app.use("/assets", express.static(__dirname + path.assets, options));
+app.use("/", express.static(__dirname + path.web, options));
 app.set("secret", "jf389u3cosidufq0e3");
 
 app.use(express.json());
