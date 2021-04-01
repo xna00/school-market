@@ -36,10 +36,7 @@ sessions.value = [];
 socket.emit("get messages");
 const messageCount = computed(() =>
   sessions.value.reduce<number>(
-    (total, current) =>
-      total +
-      current.msgs.filter((msg) => msg.from !== localStorage.id && !msg.read)
-        .length,
+    (total, current) => total + current.unReadCount,
     0
   )
 );

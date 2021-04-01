@@ -1,6 +1,12 @@
 import { io } from "socket.io-client";
 import { ref } from "vue";
-const sessions = ref<{ id: string; msgs: Message[] }[]>([]);
+const sessions = ref<
+  {
+    id: string;
+    unReadCount: number;
+    msgs: Message[];
+  }[]
+>([]);
 const extraHeaders: { [header: string]: string } = {};
 if (localStorage.token) {
   extraHeaders.Authorization = "Bearer " + localStorage.token;
@@ -27,10 +33,13 @@ socket.on("message", (msgs: Message[]) => {
     const id = me === msg.from ? msg.to : msg.from;
     let ms = sessions.value.find((m) => m.id === id);
     if (!ms) {
-      ms = { id, msgs: [] };
+      ms = { id, msgs: [], unReadCount: 0 };
       sessions.value.push(ms);
     }
     ms.msgs.push(msg);
+    if (msg.from !== localStorage.id && !msg.read) {
+      ms.unReadCount++;
+    }
   });
   sessions.value.sort((ma, mb) => {
     const timeA = new Date(ma.msgs[ma.msgs.length - 1].createAt).getTime();

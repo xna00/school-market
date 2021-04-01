@@ -9,19 +9,34 @@
       class="d-flex"
     >
       <img :src="users[i]?.avatar" class="mr-5" />
-      <div>
+      <div class="info">
         {{ users[i]?.name }}
         <br />
         {{ session.msgs[session.msgs.length - 1].content }}
+      </div>
+      <div class="unread-count">
+        {{ session.unReadCount ? session.unReadCount : "" }}
       </div>
     </li>
   </Layout>
 </template>
 <style lang="scss" scoped>
 li {
+  align-items: center;
   > img {
     width: 10vw;
     height: 10vw;
+  }
+  > .info {
+    flex-grow: 1;
+  }
+  > .unread-count {
+    background: red;
+    font-size: .8em;
+    width: 1.2em;
+    line-height: 1.2em;
+    text-align: center;
+    border-radius: 50%;
   }
 }
 </style>
@@ -39,7 +54,6 @@ watch(
         async (session) => (await http.get(`users/${session.id}`)).data
       )
     );
-    console.log(users.value);
   },
   { deep: true }
 );
