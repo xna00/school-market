@@ -76,7 +76,8 @@ const uploadImage = async (e) => {
 <style lang="scss" scoped>
 .form-1 {
   > img {
-    max-width: 45vw;
+    max-width: 100%;
+    display: block;
   }
   textarea {
     width: 100%;

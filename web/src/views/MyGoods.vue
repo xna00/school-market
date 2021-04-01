@@ -5,8 +5,8 @@
       <span class="text-ellipsis flex-1">
         {{ good.description }}
       </span>
-      <Icon @click="$router.push(`/upload/${good._id}`)" name="minus" />
-      <Icon @click="deleteGood(index)" name="plus" />
+      <Icon @click="$router.push(`/upload/${good._id}`)" name="pen" />
+      <Icon @click="deleteGood(index)" name="close" />
     </li>
   </ol>
 </template>
