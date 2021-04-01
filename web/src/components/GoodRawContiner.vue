@@ -22,6 +22,7 @@ div {
     width: 100%;
     height: 45vw;
     border-radius: 2vw;
+    object-fit: cover;
   }
 }
 </style>
