@@ -1,7 +1,11 @@
 <template>
   <div class="px-3">
+    <Icon @click="$router.back()" name="left" />
+    <div>{{ user?.name }}</div>
     <div>{{ user?.account }}</div>
-    <button v-if="chat" class="chat" @click="$router.push(`/chat/${user._id}`)">私聊</button>
+    <button v-if="chat" class="chat" @click="$router.push(`/chat/${user._id}`)">
+      私聊
+    </button>
     <div class="d-flex jc-between continer">
       <GoodRawContiner :goods="user?.goods" />
     </div>

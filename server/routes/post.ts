@@ -5,7 +5,9 @@ import express, { Express } from "express";
 export default (app: Express) => {
   const router = express.Router();
   router.get("/", async (req, res) => {
-    const posts = await Post.find({ parent: null }).populate("author");
+    const posts = await Post.find({ parent: null })
+      .sort({ _id: -1 })
+      .populate("author");
     res.send(posts);
   });
   router.get("/:id", async (req, res) => {

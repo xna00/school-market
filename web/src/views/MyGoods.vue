@@ -29,3 +29,11 @@ const deleteGood = async (index: number) => {
   await fetch();
 };
 </script>
+<style lang="scss" scoped>
+li {
+  font-size: 1.2em;
+  line-height: 2em;
+  align-items: center;
+  padding: 0 .2em;
+}
+</style>

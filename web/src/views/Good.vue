@@ -3,9 +3,10 @@
     <header class="py-6">
       <Icon name="left" @click="$router.back()" />
     </header>
-    <div @click="$router.push(`/users/${good?.seller._id}`)">
+    <div @click="$router.push(url)">
       {{ good?.seller.name }}
     </div>
+    <button @click="$router.push(`/chat/${good?.seller._id}`)">私信</button>
     <div class="price py-5">¥{{ good?.price }}</div>
     <p>{{ good?.description }}</p>
     <img v-for="image in good?.images" :src="image" alt="" />
@@ -20,8 +21,13 @@ const props = defineProps({
   id: { type: String },
 });
 const good = ref();
+const url = ref();
 const fetch = async () => {
   good.value = (await http.get(`/goods/${props.id}`)).data;
+  url.value =
+    good.value.seller._id === localStorage.id
+      ? "/me"
+      : `/users/${good.value.seller._id}`;
 };
 fetch();
 </script>

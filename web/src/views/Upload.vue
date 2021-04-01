@@ -78,6 +78,7 @@ const uploadImage = async (e) => {
   > img {
     max-width: 100%;
     display: block;
+    margin: 10px auto;
   }
   textarea {
     width: 100%;
