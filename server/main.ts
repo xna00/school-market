@@ -21,6 +21,7 @@ app.post("/api/upload", upload.single("image"), (req: any, res) => {
   res.send({ fileUrl: file.path });
 });
 app.use("/uploads", express.static(__dirname + "/uploads"));
+app.use("/assets", express.static(__dirname + "/assets"));
 app.set("secret", "jf389u3cosidufq0e3");
 
 app.use(express.json());
