@@ -70,12 +70,12 @@ p {
             {{ post.content }}
           </p>
         </div>
-      </main>
+      </main> 
       <div class="replies">
         <div
           v-for="reply1 in post.replies"
           class="r1"
-          @click="onClick(reply1._id, reply1.author?._id)"
+          @click.capture="onClick(reply1._id, reply1.author?._id)"
         >
           <img
             :src="reply1.author?.avatar"
@@ -93,7 +93,7 @@ p {
             <div
               v-for="reply2 in reply1.replies"
               class="r2"
-              @click="onClick(reply1._id, reply2.author?._id)"
+              @click.capture="onClick(reply1._id, reply2.author?._id)"
             >
               <img
                 :src="reply2.author?.avatar"
