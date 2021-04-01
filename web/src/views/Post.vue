@@ -1,7 +1,7 @@
 <style lang="scss" scoped>
 img {
-  width: 10vw;
-  border-radius: 5vw;
+  border-radius: 50%;
+  object-fit: cover;
 }
 .time {
   color: gray;
@@ -31,10 +31,21 @@ p {
     }
     > main {
       margin-bottom: 10px;
+      > img {
+        width: 10vw;
+        height: 10vw;
+      }
+    }
+    .r1 {
+      img {
+        width: 9vw;
+        height: 9vw;
+      }
     }
     .r2 {
       img {
         width: 7vw;
+        height: 7vw;
       }
     }
   }
@@ -45,7 +56,10 @@ p {
     <Icon name="left" @click="$router.back()" />
     <div v-if="post" class="post flex-1">
       <main @click="onClick(post._id, post.author._id)">
-        <img :src="post.author.avatar" />
+        <img
+          :src="post.author.avatar"
+          @click="$router.push(`/users/${post.author._id}`)"
+        />
         <div>
           <strong>
             {{ post.author.name }}
@@ -63,7 +77,10 @@ p {
           class="r1"
           @click="onClick(reply1._id, reply1.author?._id)"
         >
-          <img :src="reply1.author?.avatar" />
+          <img
+            :src="reply1.author?.avatar"
+            @click="$router.push(`/users/${reply1.author._id}`)"
+          />
           <div>
             <strong>
               {{ reply1.author?.name }}
@@ -78,7 +95,10 @@ p {
               class="r2"
               @click="onClick(reply1._id, reply2.author?._id)"
             >
-              <img :src="reply2.author?.avatar" />
+              <img
+                :src="reply2.author?.avatar"
+                @click="$router.push(`/users/${reply2.author._id}`)"
+              />
               <div>
                 <strong>
                   {{ reply2.author?.name }} -> {{ reply2.replyTo?.name }}
