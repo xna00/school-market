@@ -22,7 +22,7 @@ export default (server: HttpServer) => {
     socket.request.app = app;
     middleware(socket.request, {}, next);
   };
-  io.use(wrap(auth()));
+  io.use(wrap(auth("socketio")));
 
   const userMap = new Map();
 
