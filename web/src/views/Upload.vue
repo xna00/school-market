@@ -50,11 +50,11 @@ let upload;
 if (props.id) {
   fetch();
   upload = () => {
-    http.put(`goods/${props.id}`, good);
+    http.put(`goods/${props.id}`, good.value);
   };
 } else {
   upload = () => {
-    http.post("/goods", good);
+    http.post("/goods", good.value);
   };
 }
 const uploadImage = async (e) => {
@@ -69,7 +69,7 @@ const uploadImage = async (e) => {
     })
   ).data;
   if (res.fileUrl) {
-    images.value.push("http://localhost:4000/" + res.fileUrl);
+    images.value.push("/" + res.fileUrl);
   }
 };
 </script>

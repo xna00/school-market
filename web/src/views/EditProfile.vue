@@ -48,7 +48,7 @@ const uploadAvatar = async (e) => {
     })
   ).data;
   if (res.fileUrl) {
-    user.value.avatar = "http://localhost:4000/" + res.fileUrl;
+    user.value.avatar = "/" + res.fileUrl;
   }
 };
 const submit = async (e) => {

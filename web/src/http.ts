@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-  baseURL: (<string>import.meta.env.VITE_API_URL || "") + "/api",
+  baseURL: "/api",
 });
 http.interceptors.request.use((config) => {
   if (localStorage.token) {

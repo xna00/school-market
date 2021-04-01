@@ -11,7 +11,7 @@ const extraHeaders: { [header: string]: string } = {};
 if (localStorage.token) {
   extraHeaders.Authorization = "Bearer " + localStorage.token;
 }
-const socket = io("http://127.0.0.1:4000", {
+const socket = io(<string>import.meta.env.VITE_API_URL, {
   extraHeaders,
 });
 socket.on("connect", () => {
