@@ -1,0 +1,6 @@
+{
+  "multerDest": "uploads/",
+  "uploads": "/uploads",
+  "assets": "/assets",
+  "web": "/../web/dist"
+}

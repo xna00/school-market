@@ -10,18 +10,21 @@ import auth from "./routes/auth";
 import user from "./routes/user";
 import post from "./routes/post";
 
+import path from "./path.json";
+
 const app = express();
 const server = createServer(app);
 socketIO(server);
 
 app.use(cors());
-const upload = multer({ dest: "uploads/" });
+const upload = multer({ dest: path.multerDest });
 app.post("/api/upload", upload.single("image"), (req: any, res) => {
   const file = req.file;
   res.send({ fileUrl: file.path });
 });
-app.use("/uploads", express.static(__dirname + "/uploads"));
-app.use("/assets", express.static(__dirname + "/assets"));
+app.use("/uploads", express.static(__dirname + path.uploads));
+app.use("/assets", express.static(__dirname + path.assets));
+app.use("/", express.static(__dirname + path.web));
 app.set("secret", "jf389u3cosidufq0e3");
 
 app.use(express.json());

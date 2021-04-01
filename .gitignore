@@ -3,3 +3,4 @@ test*
 *.http
 .vscode
 uploads
+dist
