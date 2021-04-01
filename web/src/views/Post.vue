@@ -3,14 +3,39 @@ img {
   width: 10vw;
   border-radius: 5vw;
 }
+.time {
+  color: gray;
+  font-size: 0.8em;
+}
+p {
+  white-space: pre;
+}
 .wrapper {
+  background: #f7f7f7;
   > .post {
+    padding-top: 5px;
     overflow: auto;
     > main,
     .r1,
     .r2 {
+      background: white;
       display: flex;
       align-items: flex-start;
+
+      > div {
+        flex-grow: 1;
+        > p {
+          border-bottom: 1px solid;
+        }
+      }
+    }
+    > main {
+      margin-bottom: 10px;
+    }
+    .r2 {
+      img {
+        width: 7vw;
+      }
     }
   }
 }
@@ -26,7 +51,7 @@ img {
             {{ post.author.name }}
           </strong>
           <br />
-          <span>{{ post.createdAt }}&nbsp;</span>
+          <span class="time">{{ post.createdAt }}&nbsp;</span>
           <p>
             {{ post.content }}
           </p>
@@ -44,7 +69,7 @@ img {
               {{ reply1.author?.name }}
             </strong>
             <br />
-            <span>{{ reply1.createdAt }}&nbsp;</span>
+            <span class="time">{{ reply1.createdAt }}&nbsp;</span>
             <p>
               {{ reply1.content }}
             </p>
@@ -59,7 +84,7 @@ img {
                   {{ reply2.author?.name }} -> {{ reply2.replyTo?.name }}
                 </strong>
                 <br />
-                <span>{{ reply2.createdAt }}&nbsp;</span>
+                <span class="time">{{ reply2.createdAt }}&nbsp;</span>
                 <p>
                   {{ reply2.content }}
                 </p>

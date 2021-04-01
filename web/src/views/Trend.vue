@@ -5,10 +5,12 @@
         <li v-for="post in posts" @click="$router.push(`/posts/${post._id}`)">
           <header class="d-flex">
             <img :src="post.author?.avatar" />
-            <div>
+            <div class="ml-5">
               {{ post.author?.name }}
               <br />
-              {{ post.createAt }}
+              <span class="time">
+                {{ post.createdAt }}
+              </span>
             </div>
           </header>
           <main>{{ post.content }}</main>
@@ -32,9 +34,25 @@ fetch();
 </script>
 <style lang="scss" scoped>
 .wrapper {
-  header {
-    img {
-      width: 10vw;
+  background: #f7f7f7;
+  height: 100%;
+  li {
+    background: white;
+    margin-bottom: 10px;
+    > header {
+      img {
+        width: 10vw;
+        height: 10vw;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      .time {
+        color: gray;
+        font-size: 0.8em;
+      }
+    }
+    > main {
+      white-space: pre-wrap;
     }
   }
   > .add {
