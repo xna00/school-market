@@ -35,7 +35,7 @@ const register = ref(false);
 const id = ref(localStorage.id);
 const user = ref();
 (async () => {
-  if (id) {
+  if (id.value) {
     user.value = (await http.get(`users/${id.value}`)).data;
     console.log(user.value.avatar);
   }
@@ -50,13 +50,14 @@ const login = async (account, password) => {
   if (user.token) {
     localStorage.token = user.token;
     localStorage.id = user.id;
-    id.value = user.id;
+    location.reload();
   }
 };
 const logout = () => {
   id.value = "";
   localStorage.id = "";
   localStorage.token = "";
+  location.reload();
 };
 const onSubmit = async (e) => {
   const form = e.target as HTMLFormElement;
