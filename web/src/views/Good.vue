@@ -6,7 +6,7 @@
     <div @click="$router.push(url)">
       {{ good?.seller.name }}
     </div>
-    <button @click="$router.push(`/chat/${good?.seller._id}`)">私信</button>
+    <button v-if="url !== '/me'" @click="$router.push(`/chat/${good?.seller._id}`)">私信</button>
     <div class="price py-5">¥{{ good?.price }}</div>
     <p>{{ good?.description }}</p>
     <img v-for="image in good?.images" :src="image" alt="" />
