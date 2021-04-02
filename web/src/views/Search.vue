@@ -31,7 +31,8 @@ onMounted(()=>{
 </script>
 <style lang="scss" scoped>
 input {
-  font-size: 5vw;
+  // webview 显示有问题
+  // font-size: 5vw;
   border: none;
   outline: none;
   border: 1px solid grey;
