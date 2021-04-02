@@ -29,7 +29,16 @@ const options = {
 
 app.use("/uploads", express.static(__dirname + path.uploads, options));
 app.use("/assets", express.static(__dirname + path.assets, options));
-app.use("/", express.static(__dirname + path.web, options));
+app.use(
+  "/",
+  (req, res, next) => {
+    if (req.path === "/" || req.path === "/index.html") {
+      res.setHeader("Cache-control", "no-cache");
+    }
+    next();
+  },
+  express.static(__dirname + path.web, options)
+);
 app.set("secret", "jf389u3cosidufq0e3");
 
 app.use(express.json());
