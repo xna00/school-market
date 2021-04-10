@@ -22,6 +22,7 @@
       <div>{{ user?.account }}</div>
       <button @click="$router.push('edit-profile')">编辑资料</button>
       <button @click="$router.push('my-goods')">my goods</button>
+      <button @click="$router.push('my-posts')">my posts</button>
       <button @click="$router.push('/upload')">上传</button>
       <button @click="logout">注销</button>
     </div>

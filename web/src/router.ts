@@ -13,6 +13,7 @@ import CreatePost from "./views/CreatePost.vue";
 import Post from "./views/Post.vue";
 import EditProfile from "./views/EditProfile.vue";
 import MyGoods from "./views/MyGoods.vue";
+import MyPosts from "./views/MyPosts.vue";
 const history = createWebHashHistory();
 const router = createRouter({
   history,
@@ -30,6 +31,7 @@ const router = createRouter({
     { path: "/create-post", component: CreatePost },
     { path: "/posts/:id", component: Post, props: true },
     { path: "/my-goods", component: MyGoods },
+    { path: "/my-posts", component: MyPosts },
     { path: "/:pathMatch(.*)*", redirect: "/market" },
   ],
 });

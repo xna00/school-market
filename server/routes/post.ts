@@ -5,7 +5,8 @@ import express, { Express } from "express";
 export default (app: Express) => {
   const router = express.Router();
   router.get("/", async (req, res) => {
-    const posts = await Post.find({ parent: null })
+    const query = req.query;
+    const posts = await Post.find({ parent: null, ...query })
       .sort({ _id: -1 })
       .populate("author");
     res.send(posts);
@@ -39,6 +40,21 @@ export default (app: Express) => {
       reply.replies = await getReplies(reply);
     }
     post.replies = replies;
+    res.send(post);
+  });
+  router.delete("/:id", async (req, res) => {
+    const id = req.params.id;
+    const post = await Post.findById(id).populate("replies");
+    post?.replies?.forEach(async (reply) => {
+      const replies = await Post.find({
+        parent: reply._id,
+      });
+      replies.forEach(async (reply) => {
+        await reply.remove();
+      });
+      await reply.remove();
+    });
+    await post?.remove();
     res.send(post);
   });
   router.post("/", async (req, res) => {
